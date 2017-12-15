@@ -1,0 +1,34 @@
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer song;
+AudioInput in;
+
+boolean lerping = true;
+
+int linesX = 40; 
+int linesY = 26; 
+
+boolean fight = true;
+boolean autopilot = false;
+boolean controls = true;
+boolean voice = false;
+int coef = 1;
+int mode = 0;
+float magnitude = 0;
+float maxMagnitude = 500.0;
+
+color c;
+PVector distance;
+float stepsX, stepsY, radius, intensity, movement, last_sum, scale, factor, wave, sum;
+
+class Node {
+  float xpos, ypos, speed, anchorx, anchory;
+  Node (float x, float y, float s) {
+    anchorx = x;
+    anchory = y;
+    ypos = y;
+    xpos = x;
+    speed = s;
+  }
+}
