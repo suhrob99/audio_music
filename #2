@@ -1,0 +1,10 @@
+sum = 0;
+for (int i = 0; i < song.bufferSize() - 1; i++)
+  {
+    if (voice) {
+      line(i*factor, height/2 + in.left.get(i)*last_sum + 2, i*factor+1, height/2 + in.left.get(i+1)*last_sum + 2);
+      sum += abs(in.left.get(i));
+    } else {
+      line(i*factor, height/2 + song.left.get(i)*last_sum + 2, i*factor+1, height/2 + song.left.get(i+1)*last_sum + 2);
+      sum += abs(song.left.get(i));
+    }
