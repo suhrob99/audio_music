@@ -32,3 +32,45 @@ class Node {
     speed = s;
   }
 }
+void draw() {
+  background(frameCount%255, 255, 30);
+  coef = (fight ? 1 : -1);
+  if (lerping) {
+    magnitude = lerp(sum, last_sum, 0.7)/2.5;
+  } else {
+    magnitude = last_sum;
+  }
+  wave = last_sum/2.5;
+  for (int i = 0; i < linesX; i++) {
+    for (int j = 0; j < linesY; j++) {
+      if (autopilot) {
+      } else {
+        distance = new PVector(Nodes[i][j].xpos - mouseX, Nodes[i][j].ypos - mouseY);
+      }
+      scale = (1/distance.mag())*magnitude;
+      fill(255);
+      intensity = pow(1 - distance.mag()/(maxMagnitude), 5) / 5;
+      radius = (intensity*magnitude);
+      Nodes[i][j].xpos += coef*(distance.x*scale)/25;
+      Nodes[i][j].ypos += coef*(distance.y*scale)/25;
+      Nodes[i][j].xpos = lerp(Nodes[i][j].xpos, Nodes[i][j].anchorx, 0.05);
+      Nodes[i][j].ypos = lerp(Nodes[i][j].ypos, Nodes[i][j].anchory, 0.05);
+      if (radius > 50) {
+        radius = 50;
+      }
+      if (radius < 2) {
+        radius = 2;
+      }
+      c = color(170 + magnitude/2, magnitude*5, 255, 255);
+      fill(c);
+      stroke(c);
+      if (mode == 0) {
+        ellipse(Nodes[i][j].xpos + coef*(distance.x*scale), Nodes[i][j].ypos + coef*(distance.y*scale), radius, radius);
+      }
+      if (mode == 1) {
+        strokeWeight(radius/3);
+        strokeCap(PROJECT);
+        line(Nodes[i][j].xpos + coef*(distance.x*scale), Nodes[i][j].ypos + coef*(distance.y*scale), Nodes[i][j].xpos, Nodes[i][j].ypos);
+      }
+    }
+  }
